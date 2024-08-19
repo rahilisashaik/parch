@@ -10,7 +10,7 @@ import ViewerContainer from "./components/model-viewer/model-viewer-container-co
 ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
         {/* <ParchView/> */}
-        <ViewerContainer />
+        <ViewerContainer/>
     </Provider>
 );
 
