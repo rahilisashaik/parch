@@ -66,7 +66,7 @@ function hide(ele) {
 }
 
 function Viewer() {
-
+	// screenshot button
 	ViewerUI.downloadScreen.onclick = function() {
 		const canvas = renderer.domElement;
 		renderAll();
@@ -77,12 +77,14 @@ function Viewer() {
 		a.click();
 	}
 
+	// explode button
 	ViewerUI.explodeFace.onclick = function() {
 		explodeFace = this.checked;
 		resetExplode();
 		explode();
 	}
 
+	//cube stuff 
 	let cubeCameraDistance = 1.75;
 
 	let cubeWrapper = ViewerUI.cubeWrapper;

@@ -3,6 +3,8 @@
 import React from 'react';
 
 const ViewerControls = () => {
+  // these interactivity controls sit in the footer of the webpage
+
   return (
     <div>
       <div className='footer'>

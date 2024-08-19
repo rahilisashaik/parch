@@ -1,5 +1,4 @@
 import React from 'react';
-import ModelViewer from './model-viewer-component.js';
 import { useEffect } from 'react';
 import './model-viewer.css';
 import ViewerHeader from './model-viewer-header-component.tsx';
@@ -7,7 +6,8 @@ import ViewerCanvas from './model-viewer-canvas-component.tsx';
 import ViewerControls from './model-viewer-interactivity-component.tsx';
 import ViewerModelBrowser from './model-viewer-browser-component.tsx';
 import ViewerShareSidebar from './model-viewer-sidebar-component.tsx';
-import ViewerCube from './model-viewer-cube-component.tsx';
+import ViewerCube from './model-viewer-right-container.tsx';
+import ViewerRightContainer from './model-viewer-right-container.tsx';
 
 
 const ViewerContainer = () => {
@@ -35,7 +35,7 @@ const ViewerContainer = () => {
       <ViewerControls />
       <ViewerModelBrowser />
       <ViewerShareSidebar />
-      <ViewerCube />
+      <ViewerRightContainer />
 
       <script src='vendor/three.min.js'></script>
       <script src='vendor/OrbitControls.js'></script>

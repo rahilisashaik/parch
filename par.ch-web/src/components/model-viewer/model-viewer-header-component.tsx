@@ -4,7 +4,6 @@ import React from 'react';
 const ViewerHeader = () => {
   return (
     <div>
-
     <div className='wrapper'>
 	    <div className='header'>
 	        <div className='header-left'> 
@@ -17,16 +16,7 @@ const ViewerHeader = () => {
 	                <div className='header-title'>Browse Project Directory</div>
 	            </label>
 	        </div>
-	        <div className='header-right'>
-	            <div className='header-item' id='downloadScreen'>
-	                <div className='header-icon'><i className='fa fa-camera'></i></div>
-	                <div className='header-title'>Screenshot</div>
-	            </div>
-	            <div className='header-item' id='toggleShare'>
-	                <div className='header-icon'><i className='fa fa-share-alt'></i></div>
-	                <div className='header-title'>Share</div>
-	            </div>
-	        </div>
+	        <div className='header-right'></div>
 	    </div>
     </div>
     </div>
