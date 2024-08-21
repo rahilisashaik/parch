@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import './model-viewer.css';
 import * as THREE from 'three';
+import ViewerRightContainer from './model-viewer-right-container.tsx';
 
 const ViewerCanvas = () => {
   const canvasWrapperRef = useRef(null);
@@ -40,26 +41,50 @@ const ViewerCanvas = () => {
 		ctx!.strokeRect(0, 0, size, size);
 		ctx!.fillStyle = '#999';
 		ctx!.fillText(texts[i], size / 2, size / 2);
-		materials[i] = new THREE.MeshBasicMaterial({
-			map: textureLoader.load(canvas.toDataURL())
-		});
+		// materials[i] = new THREE.MeshBasicMaterial({
+		// 	map: new THREE.TextureLoader.load(canvas.toDataURL())
+		// });
 	}
   return (
     <div>
-    <div id="viewerCanvasWrapper">
-      <div className='viewer-wrapper'>
+    	<div className='viewer-wrapper'>
 	        <div id='viewerCanvasWrapper'></div>
-	        <div className='slider-container' id='explodeSliderWrapper' ref={canvasWrapperRef}>
+	        <div className='slider-container' id='explodeSliderWrapper'>
 	            <div className='explode-content'>
-	                {/* <input type='range' min='0' max='10' step='0.01' value='1' className='slider' id='explodeSlider'> */}
+	                {/* <input type='range' min='0' max='10' step='0.01' value='1' className='slider' id='explodeSlider'>
 	                <label className="cb-container">Explode Face (may cause lags!)
-	                    {/* <input type="checkbox" id="explodeFace"> */}
+	                    <input type="checkbox" id="explodeFace">
 	                    <span className="checkmark"></span>
-	                </label>
+	                </label> */}
 	            </div>
 	        </div>
-    </div>
-    </div>
+	        <div className='left-sidebar' id='modelBrowser'>
+	            <div className='sidebar-content' id='modelBrowserContent'>
+	                <div className='graph-item-wrapper'>
+	                    <div className='graph-item'>
+	                        <div className='graph-left'>
+	                            <div className='graph-folder'>
+	                                <i className='fa fa-folder'></i>
+	                            </div>
+	                            <div className='graph-name'>Test Scene</div>
+	                        </div>
+	                        <div className='graph-right'>
+	                            <div className='graph-visible'>
+	                                <i className='fa fa-eye'></i>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div className='right-container'>
+	            <div id='backToHome'><i className='fa fa-home'></i></div>
+	            <div id='orientCubeWrapper'></div>
+	        </div>
+			<div>
+	        	<ViewerRightContainer></ViewerRightContainer>
+			</div>
+	    </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const ViewerShareSidebar = () => {
 	                            <div className='graph-folder'>
 	                                <i className='fa fa-folder'></i>
 	                            </div>
-	                            <div className='graph-name'>Test Scene</div>
+	                            {/* <div className='graph-name'>Test Scene</div> */}
 	                        </div>
 	                        <div className='graph-right'>
 	                            <div className='graph-visible'>

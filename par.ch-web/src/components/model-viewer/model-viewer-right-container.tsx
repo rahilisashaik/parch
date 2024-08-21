@@ -8,6 +8,14 @@ const ViewerRightContainer = () => {
   const loader = useRef<HTMLDivElement>(null);
   const cubeWrapper = useRef<HTMLDivElement>(null);
   
+	let cubeScene = new THREE.Scene();
+	let cubeCamera = new THREE.PerspectiveCamera(70, cubeWrapper.offsetWidth / cubeWrapper.offsetHeight, 0.1, 100);
+  let cubeRenderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,
+    preserveDrawingBuffer: true
+  });
+
   useEffect(() => {
     if (cubeWrapper.current) {
       const cubeWrapperRef = cubeWrapper.current;
@@ -17,11 +25,7 @@ const ViewerRightContainer = () => {
 
       let cubeScene = new THREE.Scene();
       let cubeCamera = new THREE.PerspectiveCamera(70, offsetWidth / offsetHeight, 0.1, 100);
-      let cubeRenderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-        preserveDrawingBuffer: true
-      });
+
 
       cubeRenderer.setSize(offsetWidth, offsetHeight);
       cubeRenderer.setPixelRatio(window.devicePixelRatio);
@@ -29,6 +33,14 @@ const ViewerRightContainer = () => {
       cubeWrapperRef.appendChild(cubeRenderer.domElement);
     }
   }, []);
+
+  const renderCube = () => {
+    if (cubeWrapper.current) {
+      const cubeWrapperRef = cubeWrapper.current;
+      // renderAll();
+      cubeRenderer.render(cubeScene, cubeCamera);
+    }
+  }
 
   const showLoader = () => {
     if (loader.current) {
@@ -44,24 +56,30 @@ const ViewerRightContainer = () => {
     }
   } 
 
+  useEffect(() => {hideLoader();}, []);
+
+  useEffect(() => {renderCube();}, []);
+
   const showCube = () => {
     if (cubeWrapper.current) {
       const cubeWrapperRef = cubeWrapper.current;
       show(cubeWrapperRef);
     }
   }
-  useEffect(() => {hideLoader();}, []);
-  useEffect(() => {showCube();}, []);
 
+  const hideCube = () => {  
+    if (cubeWrapper.current) {
+      const cubeWrapperRef = cubeWrapper.current;
+      hide(cubeWrapperRef);
+    }
+  }
+  
   return (
     <div>
-      <div className='right-container'>
-        <div id='backToHome'><i className='fa fa-home'></i></div>
-        <div id='orientCubeWrapper' ref={cubeWrapper}></div>
-      </div>
-      <div className='share-sidebar' id='shareSidebar'>
-        <h1 className='sidebar-title'>Some content here!</h1>
-      </div>
+        <div className='right-container'>
+	            <div id='backToHome'><i className='fa fa-home'></i></div>
+	            <div id='orientCubeWrapper' ref={cubeWrapper}>Cube</div>
+        </div>
       <div className='loader' id='loader' ref={loader}>
         <div className='loader-text' id='loaderInfo'>Loading...</div>
         <div className='loader-spinner'></div>

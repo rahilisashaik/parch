@@ -25,3 +25,20 @@ function toggle(ele) {
 	}
 }
 
+function renderAll() {
+
+	renderer.clear();
+	renderer.render(scene, camera);
+	updateCubeCamera();
+	cubeRenderer.render(cubeScene, cubeCamera);
+
+	renderer.clearDepth();
+
+	if (isInMeasureMode) {
+		renderer.clearDepth();
+		renderer.render(lineScene, camera);
+		renderer.clearDepth();
+		renderer.render(spriteScene, camera);
+	}
+}
+

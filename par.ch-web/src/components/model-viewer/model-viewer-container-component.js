@@ -30,12 +30,23 @@ const ViewerContainer = () => {
         </head>
       </html>
 
-      <ViewerHeader />
-      <ViewerCanvas />
-      <ViewerControls />
-      <ViewerModelBrowser />
-      <ViewerShareSidebar />
-      <ViewerRightContainer />
+      <body>
+        <div className="wrapper">
+          <div>
+            <ViewerHeader />
+          </div>
+          <div>
+            <ViewerCanvas />
+          </div>
+        
+
+
+        {/* <ViewerControls />
+        <ViewerModelBrowser />
+        <ViewerShareSidebar />
+        <ViewerRightContainer /> */}
+        </div>
+      </body>
 
       <script src='vendor/three.min.js'></script>
       <script src='vendor/OrbitControls.js'></script>

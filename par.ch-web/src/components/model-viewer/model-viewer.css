@@ -13,11 +13,14 @@ body {
 	background: #333;
 	color: #fff;
 	padding: 10px;
+	width: 100vw;
+	height: 80px;
 }
 
 .header-left {
 	display: flex;
 	flex-direction: column;
+	padding-top: 1.5rem;
 }
 
 .header-item {
