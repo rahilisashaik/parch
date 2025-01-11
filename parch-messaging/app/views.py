@@ -14,7 +14,7 @@ class FileListCreateView(generics.ListCreateAPIView):
     serializer_class = FileSerializer
 
 
-class CommentListCreateView(generics.ListCreateAPIView):
+class CommentCreateView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 

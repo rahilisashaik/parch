@@ -1,2 +1,5 @@
 .DS_Store
 .cache
+/parch-messaging/app/__pycache__
+/parch-messaging/project/__pycache__/
+/parch-messaging/app/migrations

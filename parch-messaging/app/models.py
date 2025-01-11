@@ -12,8 +12,8 @@ class File(models.Model):
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
-    file_id = models.ForeignKey(File, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    file_id = models.IntegerField()  # Explicitly using file_id
+    user_id = models.IntegerField()  
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

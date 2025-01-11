@@ -50,3 +50,7 @@ project/
 ├── templates/              # HTML templates (if needed)
 ├── requirements.txt        # Python dependencies
 ├── .env                    # Environment variables
+
+
+current bugs:
+- reconfigure post requests to have their own view instead of routing them through get requests
