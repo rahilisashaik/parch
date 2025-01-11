@@ -4,5 +4,5 @@
 /parch-messaging/project/__pycache__/
 /parch-messaging/app/migrations
 /parch-messaging-frontend/node_modules/
-/parch-messaging-frontend/package-lock
+/parch-messaging-frontend/package.json
 /parch-messaging-frontend/package-lock.json
