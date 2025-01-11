@@ -10,7 +10,6 @@ class File(models.Model):
     def __str__(self):
         return self.name
 
-
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     file_id = models.ForeignKey(File, on_delete=models.CASCADE)
