@@ -60,6 +60,6 @@ Potential Endpoints:
 /api/users/	GET	Fetch all users
 /api/users/	POST	Add a user
 /api/users/<user_id>/	GET	Fetch details of a specific user
-/api/users/<user_id>/	PUT	Update user details
+/api/users/<user_id>/	PUT	Update user details file
 /api/users/<user_id>/	DELETE	Delete a user
 /api/files/<file_id>/	DELETE	Delete a file
