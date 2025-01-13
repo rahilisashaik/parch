@@ -20,6 +20,7 @@ const FileUpload = ({ onUpload }) => {
             const response = await axios.post("http://127.0.0.1:8000/api/files/", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
+            console.log("rahil")
             setUploadStatus("File uploaded successfully!");
             onUpload(response.data); // Notify parent about the new file
         } catch (error) {

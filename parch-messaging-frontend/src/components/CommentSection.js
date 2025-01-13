@@ -24,7 +24,7 @@ const CommentSection = ({ fileId }) => {
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/comments/", {
                 file: fileId,
-                user: 1, // Hardcoded user for now, replace with authenticated user later
+                user: 1, // hardcoded user for now, replace with authenticated user later
                 content: newComment,
             });
             setComments([...comments, response.data]);
