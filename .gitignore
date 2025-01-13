@@ -1,8 +1,8 @@
 .DS_Store
 .cache
-/parch-messaging/app/__pycache__
-/parch-messaging/project/__pycache__/
-/parch-messaging/app/migrations
+/parch-messaging-backend/project/__pycache__/
+/parch-messaging-backend/app/__pycache__/
+/parch-messaging-backend/app/migrations
 /parch-messaging-frontend/node_modules/
 /parch-messaging-frontend/package.json
 /parch-messaging-frontend/package-lock.json

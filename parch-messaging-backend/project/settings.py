@@ -135,3 +135,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ]
 
 CORS_ALLOW_ALL_ORIGINS = True # make sure you change to False when deploying to production
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = '<your-access-key-id>'
+AWS_SECRET_ACCESS_KEY = '<your-secret-access-key>'
+AWS_STORAGE_BUCKET_NAME = 'parch-files'
+
+AWS_S3_REGION_NAME = '<your-region>'
+
+AWS_QUERYSTRING_AUTH = False # Create permissions before deploying to production
+
