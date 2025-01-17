@@ -1,3 +1,5 @@
+import boto3
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
@@ -10,11 +12,35 @@ class FileListCreateView(generics.ListCreateAPIView):
     serializer_class = FileSerializer
 
     def post(self, request, *args, **kwargs):
+        file_obj = request.FILES.get('file')
+
+        if not file_obj:
+            return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = FileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)  # This will call `validate_file`
+
+        s3 = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            region_name=settings.AWS_S3_REGION_NAME
+        )
+        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        s3_key = f"uploads/{file_obj.name}"  # Define the S3 object key
+
+        try:
+            s3.upload_fileobj(file_obj, bucket_name, s3_key)
+            s3_url = f"https://{bucket_name}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{s3_key}"
+
+            file_instance = File.objects.create(
+                name=request.data.get('name'),
+                url=s3_url
+            )
+            return Response(FileSerializer(file_instance).data, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class CommentListCreateView(generics.ListCreateAPIView):

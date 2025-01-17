@@ -138,11 +138,11 @@ CORS_ALLOW_ALL_ORIGINS = True # make sure you change to False when deploying to 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = '<your-access-key-id>'
-AWS_SECRET_ACCESS_KEY = '<your-secret-access-key>'
+AWS_ACCESS_KEY_ID = 'AKIAWQUOZRZ54A5JSJ4W'
+AWS_SECRET_ACCESS_KEY = '2jH3XIGX0hUI7CmCoqtQHszS8EOX8/uIWq2ZO9F1'
 AWS_STORAGE_BUCKET_NAME = 'parch-files'
 
-AWS_S3_REGION_NAME = '<your-region>'
+AWS_S3_REGION_NAME = 'us-east-2'
 
 AWS_QUERYSTRING_AUTH = False # Create permissions before deploying to production
 

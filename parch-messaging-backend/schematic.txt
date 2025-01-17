@@ -51,7 +51,7 @@ backend
 ├── requirements.txt        # Python dependencies
 ├── .env                    # Environment variables
 
-Potential Endpoints:
+Endpoints:
 /api/files/	GET	Fetch all files
 /api/files/	POST	Add a file
 /api/files/<file_id>/comments/	GET	Fetch comments for a specific file
