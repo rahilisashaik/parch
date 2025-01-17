@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for project project.
 
@@ -138,11 +140,11 @@ CORS_ALLOW_ALL_ORIGINS = True # make sure you change to False when deploying to 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'AKIAWQUOZRZ54A5JSJ4W'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'parch-files'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
 
-AWS_S3_REGION_NAME = 'us-east-2'
 
 AWS_QUERYSTRING_AUTH = False # Create permissions before deploying to production
 

@@ -2,6 +2,7 @@
 .cache
 /parch-messaging-backend/project/__pycache__/
 /parch-messaging-backend/app/__pycache__/
+/parch-messaging-backend/project/.env
 /parch-messaging-backend/app/migrations
 /parch-messaging-frontend/node_modules/
 /parch-messaging-frontend/package.json
