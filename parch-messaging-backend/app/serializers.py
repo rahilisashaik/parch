@@ -10,11 +10,18 @@ class FileSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'url', 'uploaded_at', 'file']
         read_only_fields = ['url', 'uploaded_at']  # 'url' and 'uploaded_at' are output-only
 
-
     def validate_file(self, value):
         if not value.name.endswith('.pdf'):
             raise serializers.ValidationError("Only PDF files are allowed.") 
         return value
+    
+    def remove(self, file_id):
+        try:
+            file = File.objects.get(id=file_id)
+            file.delete()
+            return file
+        except File.DoesNotExist:
+            raise serializers.ValidationError("File not found")
 
 
 class CommentSerializer(serializers.ModelSerializer):

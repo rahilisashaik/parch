@@ -32,10 +32,17 @@ class FileListCreateView(generics.ListCreateAPIView):
         print("S3 Key:", s3_key)
 
         try:
+            s3.upload_fileobj(
+                file_obj,
+                bucket_name,
+                s3_key,
+                ExtraArgs={
+                    "ContentType": "application/pdf",  # Explicitly set the content type for PDFs
+                    "ContentDisposition": "inline",    # Ensure the file is displayed inline
+                },
+            )
 
-            s3.upload_fileobj(file_obj, bucket_name, s3_key)
             s3_url = f"https://{bucket_name}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{s3_key}"
-            print("S3 URL:", s3_url)
 
             file_instance = File.objects.create(
                 name=file_name,
@@ -47,6 +54,21 @@ class FileListCreateView(generics.ListCreateAPIView):
 
         except Exception as e:
             print("Exception:", e)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+class FileRemoveView(generics.DestroyAPIView):
+    def post(self, request):
+        file_id = request.data.get('id')
+
+        if not file_id:
+            return Response({"error": "File ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            FileSerializer.remove(file_id)
+            return Response({"message": "File removed successfully"}, status=status.HTTP_200_OK)
+        except File.DoesNotExist:
+            return Response({"error": "File not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CommentListCreateView(generics.ListCreateAPIView):
