@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class File(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    url = models.FileField(upload_to='uploads/')  # Files will be uploaded to S3
+    url = models.URLField() 
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):

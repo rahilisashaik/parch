@@ -13,12 +13,12 @@ class FileListCreateView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         file_obj = request.FILES.get('file')
-
         if not file_obj:
             return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = FileSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)  # This will call `validate_file`
+        file_name = request.data.get('name')
+        if not file_name:
+            file_name = file_obj.name 
 
         s3 = boto3.client(
             's3',
@@ -27,21 +27,27 @@ class FileListCreateView(generics.ListCreateAPIView):
             region_name=settings.AWS_S3_REGION_NAME
         )
         bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-        s3_key = f"uploads/{file_obj.name}"  # Define the S3 object key
+        print("Bucket Name:", bucket_name)
+        s3_key = f"uploads/{file_obj.name}"
+        print("S3 Key:", s3_key)
 
         try:
+
             s3.upload_fileobj(file_obj, bucket_name, s3_key)
             s3_url = f"https://{bucket_name}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{s3_key}"
+            print("S3 URL:", s3_url)
 
             file_instance = File.objects.create(
-                name=request.data.get('name'),
+                name=file_name,
                 url=s3_url
             )
+            print("File Instance:", file_instance)
+
             return Response(FileSerializer(file_instance).data, status=status.HTTP_201_CREATED)
 
         except Exception as e:
+            print("Exception:", e)
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()

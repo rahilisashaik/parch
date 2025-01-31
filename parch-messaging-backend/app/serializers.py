@@ -6,13 +6,14 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = File
+        # fields = "__all__"
         fields = ['id', 'name', 'url', 'uploaded_at', 'file']
         read_only_fields = ['url', 'uploaded_at']  # 'url' and 'uploaded_at' are output-only
 
 
     def validate_file(self, value):
         if not value.name.endswith('.pdf'):
-            raise serializers.ValidationError("Only PDF files are allowed.") # only pdfs for now
+            raise serializers.ValidationError("Only PDF files are allowed.") 
         return value
 
 
