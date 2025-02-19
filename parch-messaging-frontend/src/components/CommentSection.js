@@ -24,15 +24,20 @@ const CommentSection = ({ fileId }) => {
     }, [fileId]);
 
     const handleAddComment = async () => {
+        if (!newComment.trim()) {
+            alert("Comment cannot be empty.");
+            return;
+        }
+
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/comments/", {
                 file: fileId, 
-                user: 1, // Hardcoded user ID for now
+                user: 1, // Hardcoded user ID for now (replace with actual user later)
                 content: newComment,
             });
-            setComments([...comments, response.data]); 
-            console.log("rahil")
-            setNewComment(""); 
+
+            setNewComment("");
+            setComments((prevComments) => [...prevComments, response.data]);
         } catch (error) {
             console.error("Failed to add comment:", error);
         }
@@ -41,15 +46,15 @@ const CommentSection = ({ fileId }) => {
     return (
         <div>
             <h3>Comments</h3>
-            {comments.length === 0 ? (
-                <p>No comments yet. Be the first to comment!</p>
-            ) : (
-                <ul>
-                    {comments.map((comment) => (
+            <ul>
+                {comments.length === 0 ? (
+                    <p>No comments yet. Be the first to comment!</p>
+                ) : (
+                    comments.map((comment) => (
                         <li key={comment.id}>{comment.content}</li>
-                    ))}
-                </ul>
-            )}
+                    ))
+                )}
+            </ul>
             <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}

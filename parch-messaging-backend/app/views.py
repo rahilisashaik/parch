@@ -6,6 +6,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import File, Comment, User
 from .serializers import FileSerializer, CommentSerializer, UserSerializer
+import requests
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.conf import settings
 
 class FileListCreateView(generics.ListCreateAPIView):
     queryset = File.objects.all()
@@ -103,3 +107,44 @@ class UserRemoveView(generics.DestroyAPIView):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+FORGE_CLIENT_ID = "itPbEK3OMlxz45fxNucwxrSBUGgd9u9SFEQp7bKqiX4cri1J"
+FORGE_CLIENT_SECRET = "W6y22JhKnIIAI2AAaPGoZIrF42wYLjM0LYYNGTfLczUE9al1Zq1zWGbDDRkZi0N4"
+FORGE_AUTH_URL = "https://developer.api.autodesk.com/authentication/v1/authenticate"
+FORGE_HUB_URL = "https://developer.api.autodesk.com/data/v1/projects"
+
+class ForgeAuthView(APIView):
+    """Get Autodesk Forge OAuth Token"""
+    def get(self, request):
+        payload = {
+            "client_id": FORGE_CLIENT_ID,
+            "client_secret": FORGE_CLIENT_SECRET,
+            "grant_type": "client_credentials",
+            "scope": "data:read data:write"
+        }
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        
+        response = requests.post(FORGE_AUTH_URL, data=payload, headers=headers)
+
+        if response.status_code == 200:
+            return Response(response.json())
+        return Response({"error": "Failed to authenticate"}, status=response.status_code)
+
+
+class GetFileURNView(APIView):
+    """Retrieve Forge URN for a file in Autodesk Docs"""
+    def get(self, request, project_id, file_id):
+        token_response = ForgeAuthView().get(request).data
+        print("rahil",token_response)
+        token = token_response["access_token"]
+
+        url = f"{FORGE_HUB_URL}/b.{project_id}/items/{file_id}"
+        headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            item_data = response.json()
+            urn = item_data["data"]["relationships"]["derivatives"]["data"]["id"]
+            return Response({"urn": urn})
+
+        return Response({"error": "Failed to retrieve URN"}, status=response.status_code)
