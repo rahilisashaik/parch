@@ -7,3 +7,10 @@
 /parch-messaging-frontend/node_modules/
 /parch-messaging-frontend/package.json
 /parch-messaging-frontend/package-lock.json
+/viewer-demo/back-end/node_modules
+/viewer-demo/back-end/.env
+/viewer-demo/back-end/package-lock.json
+/viewer-demo/back-end/package.json
+/viewer-demo/front-end/node_modules/
+/viewer-demo/front-end/package.json
+/viewer-demo/front-end/package-lock.json
